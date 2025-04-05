@@ -24,12 +24,17 @@ https://spring.pleiades.io/spring-boot/reference/testing/testcontainers.html
 
 `MyContainersConfiguration` を使用するようにセットアップされた [TestMyApplication](./src/test/java/dev/irof/app/TestMyApplication.java) を実行します。
 
-`bootRun` では動きませんが、JDBCであれば以下のように `jdbc:tc:...` を使用できます。
-これはSpringBootのTestcontainersサポートではなく、[TestcontainersのJDBCサポート](https://java.testcontainers.org/modules/databases/jdbc/) です。
+
+### bootTestRunを使わないパターン
+
+以下のように `spring.datasource.url` を `jdbc:tc:...` にすれば `TestMyApplication` とか作らなくてもいけます。
 
 ```shell
 SPRING_DATASOURCE_URL=jdbc:tc:mysql:latest:/// ../gradlew bootRun
 ```
+
+これはSpringBootのTestcontainersサポートではなく、[TestcontainersのJDBCサポート](https://java.testcontainers.org/modules/databases/jdbc/) です。
+この形でやるなら `application.yml` とかに書いてプロファイルで有効にするとかになると思います。JDBCでないと使えないので注意が必要です。
 
 ## メモ
 
@@ -39,8 +44,9 @@ TestcontainersではJUnit5サポート（ `org.testcontainers:junit-jupiter` ）
 JDBCサポートではJDBC URLのほうがURLを変えるだけで使用できる高レベルAPIになるため、TestcontainersでJDBC接続先のコンテナのみを使用する場合はJDBC URLが推奨されていたりします。
 
 しかしSpringBootのテストでは、このサンプルで示しているようにJDBC URLもJUnit5サポート機能（ `org.testcontainers:junit-jupiter` ）も使用せず、
-コンテナオブジェクトを `@ServiceConnection` で使用し、合成アノテーションを作成するのがおそらく適切です。
+ここで実装しているようにコンテナオブジェクトを `@ServiceConnection` で使用し、合成アノテーションを作成するのがおそらく適切です。
 
-ローカル実行はJDBC接続先だけでコンテナを使用するのであればJDBC URLで良いと思います。
+ローカル実行はJDBCだけでコンテナを使用するのであればJDBC URLで良いと思います。
 `TestMyApplication` の作りは癖がありますし、ローカル実行とはいえテストリソースがクラスパスに含まれる点に若干の懸念があるためです。
-JDBC接続先以外も使うのであればコンテナオブジェクト＋`@ServiceConnection` に寄せるか、他のコンテナ起動方法にした方がいいと思います。
+JDBC以外も使うのであればコンテナオブジェクト＋`@ServiceConnection` に寄せるか、他のコンテナ起動方法にした方がいいと思います。
+
