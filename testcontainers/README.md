@@ -1,4 +1,4 @@
-# Spring BootのTestcontainersサポート
+# Spring BootのTestcontainersサポートのサンプル実装
 
 - [Spring Boot / リファレンス / コア機能 / 開発時のサービス / テストコンテナーのサポート](https://spring.pleiades.io/spring-boot/reference/features/dev-services.html#features.dev-services.testcontainers)
 - [Spring Boot / リファレンス / テスト / Testcontainers](https://spring.pleiades.io/spring-boot/reference/testing/testcontainers.html)

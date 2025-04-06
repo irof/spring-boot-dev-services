@@ -1,9 +1,9 @@
-# Spring Bootの開発時サービスサポートのサンプル実装とコメント
+# Spring Bootの開発時サービスサポートのサンプル実装
 
-https://spring.pleiades.io/spring-boot/reference/features/dev-services.html
+- [Spring Boot / リファレンス / コア機能 / 開発時のサービス](https://spring.pleiades.io/spring-boot/reference/features/dev-services.html)
 
 Spring Boot 3.4.4でのサンプル実装です。
-それぞれのREADME.mdとコードを参照ください。
+それぞれの `README.md` とコードを参照ください。
 
 ## 背景
 

@@ -1,6 +1,7 @@
-# Spring BootのDocker Composeサポート
+# Spring BootのDocker Composeサポートのサンプル実装
 
-https://spring.pleiades.io/spring-boot/reference/features/dev-services.html#features.dev-services.docker-compose
+- [Spring Boot / リファレンス / コア機能 / 開発時のサービス / Docker Compose サポート](https://spring.pleiades.io/spring-boot/reference/features/dev-services.html#features.dev-services.docker-compose)
+- [Spring Boot / リファレンス / コア機能 / 開発時のサービス / Docker Compose サポート / テストでの Docker Compose の使用](https://spring.pleiades.io/spring-boot/reference/features/dev-services.html#features.dev-services.docker-compose.tests)
 
 ## ざっくり導入手順
 
@@ -21,8 +22,6 @@ working directoryの `compose.yml` を使ってくれます。
 サンプルではクラスパス上の `dev-compose.yml` を使うように設定しています。
 
 ## テストでのDocker Compose使用
-
-https://spring.pleiades.io/spring-boot/reference/features/dev-services.html#features.dev-services.docker-compose.tests
 
 ローカル実行とテストともにDocker Composeサポートを使用する場合は `testAndDevelopmentOnly` とした上で、
 `spring.docker.compose.skip.in-tests=false` を指定する必要があります。
