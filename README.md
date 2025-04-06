@@ -20,6 +20,8 @@ TestcontainersやDocker ComposeはそれぞれSpring Bootのサポートがな�
 
 ## 実装とコメント
 
+マルチプロジェクト構成にしていますが、関連も共通部分もなしにしています。独立して動きます。
+
 - [Testcontainers](./testcontainers)
 - [Docker Compose](./docker-compose)
 
