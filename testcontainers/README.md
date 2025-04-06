@@ -1,16 +1,28 @@
 # SpringBootのTestcontainersサポート
 
-https://spring.pleiades.io/spring-boot/reference/features/dev-services.html#features.dev-services.testcontainers
+- [Spring Boot / リファレンス / コア機能 / 開発時のサービス / テストコンテナーのサポート](https://spring.pleiades.io/spring-boot/reference/features/dev-services.html#features.dev-services.testcontainers)
+- [Spring Boot / リファレンス / テスト / Testcontainers](https://spring.pleiades.io/spring-boot/reference/testing/testcontainers.html)
+
+## ざっくり導入手順
+
+- 依存に `testAndDevelopmentOnly("org.springframework.boot:spring-boot-testcontainers")` を追加
+- 使用するコンテナに応じたTestcontainersモジュールを依存に追加
+    - ここでは `org.testcontainers:mysql` を追加
+- `@TestConfiguration` で `ServiceConnection` のBean定義
+  - ```java
+    @Bean
+    @ServiceConnection
+    MySQLContainer<?> mysql() {
+        return new MySQLContainer<>("mysql:lts");
+    }
+    ```
+- テストで使うようにする。
 
 ## テストでのTestcontainers使用
 
-https://spring.pleiades.io/spring-boot/reference/testing/testcontainers.html
-
 テストクラスごとにコンテナを定義する場合は `org.testcontainers:junit-jupiter`(`@Testcontainers` / `@Container`) は便利ですが、
-おそらくSpringBootアプリケーションのテストでは不要です。
-
-[MyContainersConfiguration](./src/test/java/dev/irof/app/MyContainersConfiguration.java) のように
-`@ServiceConnection` のBeanを定義し、これをテストで使用するように `@Import` します。
+おそらくSpringBootアプリケーションのテストでは [MyContainersConfiguration](./src/test/java/dev/irof/app/MyContainersConfiguration.java) のように
+`@ServiceConnection` のBeanを定義し、これをテストで使用するように `@Import` する形のほうが合っています。
 
 複数のテストで使用する際、各テストクラスに `@Import(MyContainersConfiguration.class)` を書くのは冗長なので、
 [@MyContainerJdbcTest](./src/test/java/dev/irof/app/MyContainerJdbcTest.java) のように
@@ -44,7 +56,10 @@ TestcontainersではJUnit5サポート（ `org.testcontainers:junit-jupiter` ）
 JDBCサポートではJDBC URLのほうがURLを変えるだけで使用できる高レベルAPIになるため、TestcontainersでJDBC接続先のコンテナのみを使用する場合はJDBC URLが推奨されていたりします。
 
 しかしSpringBootのテストでは、このサンプルで示しているようにJDBC URLもJUnit5サポート機能（ `org.testcontainers:junit-jupiter` ）も使用せず、
-ここで実装しているようにコンテナオブジェクトを `@ServiceConnection` で使用し、合成アノテーションを作成するのがおそらく適切です。
+ここで実装しているようにコンテナオブジェクトを `@ServiceConnection` で使用し、合成アノテーションを作成するのが適切です。
+
+Spring Bootのリファレンスでは `@Container` や `@ImportTestcontainers` を使用するものも[紹介されています](https://spring.pleiades.io/spring-boot/reference/features/dev-services.html#features.dev-services.testcontainers.at-development-time.importing-container-declarations)が、
+ちゃんと読めばこれはTestcontainersを昔から使っているなど、この使い方にこだわりのある方向けだということがわかります。ちゃんと読むの難しいとかは、まぁ、わかる。
 
 ローカル実行はJDBCだけでコンテナを使用するのであればJDBC URLで良いと思います。
 `TestMyApplication` の作りは癖がありますし、ローカル実行とはいえテストリソースがクラスパスに含まれる点に若干の懸念があるためです。

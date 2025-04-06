@@ -39,4 +39,7 @@ Testcontainers単体で使う場合でも複数通りの使い方があり、さ
 ただテストで使っていない場合にローカル実行のために依存を追加するかというと正直微妙なところ。
 TestcontainersはJDBC URLなら使いたいですが、JDBC以外には使えませんし、名前に冠している通りテスト向きで、ローカル実行ではどうしてもぎこちない感じが拭えません。
 
+## メモ
 
+- Testcontainersのバージョンも[Spring BootでManagement](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.1-Release-Notes#dependency-management-for-testcontainers)されています。Testcontainersに限らず、Spring BootがManagementしているバージョンはよほどの事情がない限り自分で指定しない方がいいです。
+- Gradleの `testAndDevelopmentOnly` は[Spring Boot 3.2で追加](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.2-Release-Notes#testanddevelopmentonly-gradle-configuration)されました。Testcontainersのためだそうですが、他でも使えるかもですね。
