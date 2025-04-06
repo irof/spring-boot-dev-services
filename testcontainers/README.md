@@ -8,7 +8,7 @@
 - 依存に `testAndDevelopmentOnly("org.springframework.boot:spring-boot-testcontainers")` を追加
 - 使用するコンテナに応じたTestcontainersモジュールを依存に追加
     - ここでは `org.testcontainers:mysql` を追加
-- `@TestConfiguration` で `ServiceConnection` のBean定義
+- `@TestConfiguration` で `ServiceConnection` をBean定義して、テストで使う
   - ```java
     @Bean
     @ServiceConnection
@@ -16,7 +16,6 @@
         return new MySQLContainer<>("mysql:lts");
     }
     ```
-- テストで使うようにする。
 
 ## テストでのTestcontainers使用
 
