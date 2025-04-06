@@ -2,7 +2,7 @@
 
 https://spring.pleiades.io/spring-boot/reference/features/dev-services.html#features.dev-services.docker-compose
 
-## ざっくり
+## ざっくり導入手順
 
 - `compose.yml` を用意
 - 依存に `testAndDevelopmentOnly("org.springframework.boot:spring-boot-docker-compose")` を追加
