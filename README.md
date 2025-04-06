@@ -32,6 +32,8 @@ Docker Composeサポートはシンプルケースでは `org.springframework.bo
 TestcontainersサポートはTestcontainersの `Container` を使って `@ServiceConnection` も書くので、うまくいかなくてもこの延長線上でなんとかなる感はあります。
 [スライスをテストする](https://spring.pleiades.io/spring-boot/reference/testing/spring-boot-applications.html#testing.spring-boot-applications.autoconfigured-tests)場合などは
 必要なコンテナのみを使用するのも簡単です。
+Testcontainers単体で使う場合でも複数通りの使い方があり、さらにSpringBootのドキュメントでもいくつかの使い方が示されているため、
+どうやったら動くのかわかりづらいかもしれませんし、効果のない組み合わせで使ったりとかも散見されます。
 
 ローカル実行はサポート機能は使わなくていいかなぁというのが正直なところですが、使うならDocker Composeかなと思います。
 ただテストで使っていない場合にローカル実行のために依存を追加するかというと正直微妙なところ。
