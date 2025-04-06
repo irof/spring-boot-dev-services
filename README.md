@@ -25,6 +25,9 @@ TestcontainersやDocker ComposeはそれぞれSpring Bootのサポートがな�
 
 ## 所感
 
+各READMEに書いた「ざっくり導入手順」を見て分かるように、簡単に使えるのはDocker Composeの方です。
+一方でTestcontainersの方が柔軟で痒いところにも手が届きそうな感じです。
+
 Docker Composeサポートはシンプルケースでは `org.springframework.boot:spring-boot-docker-compose` を依存に入れるだけで済み、 `ServiceConnection` などは表に出てきません。
 すでにDocker Composeを使っている場合、依存を追加するだけで動作しかねません。
 楽なのはいいですが、設定が必要な状況になると急に難度が上がるように感じるかもしれません。
