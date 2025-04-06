@@ -2,6 +2,12 @@
 
 https://spring.pleiades.io/spring-boot/reference/features/dev-services.html#features.dev-services.docker-compose
 
+## ざっくり
+
+- `compose.yml` を用意
+- 依存に `testAndDevelopmentOnly("org.springframework.boot:spring-boot-docker-compose")` を追加
+- テストで使う場合は `spring.docker.compose.skip.in-tests=false` を指定
+
 ## ローカル実行時のDocker Compose使用
 
 ```shell
@@ -10,7 +16,7 @@ https://spring.pleiades.io/spring-boot/reference/features/dev-services.html#feat
 
 [build.gradle.kts](build.gradle.kts) で依存に `org.springframework.boot:spring-boot-docker-compose` を追加するだけで、
 working directoryの `compose.yml` を使ってくれます。
-ローカル実行だけで使用するのであれば、リリースモジュールに入らないように `developmentOnly` にするのが良いでしょう。
+リリースモジュールに入らないように `developmentOnly` にするのが良いでしょう。
 
 サンプルではクラスパス上の `dev-compose.yml` を使うように設定しています。
 
@@ -20,10 +26,11 @@ https://spring.pleiades.io/spring-boot/reference/features/dev-services.html#feat
 
 ローカル実行とテストともにDocker Composeサポートを使用する場合は `testAndDevelopmentOnly` とした上で、
 `spring.docker.compose.skip.in-tests=false` を指定する必要があります。
+サンプルのようにプロファイルにしてもよいですし、合成アノテーションを使ってもいいと思います。
 
-サンプルではクラスパス上の `dev-compose.yml` を使うように設定しています。
+サンプルではクラスパス上の `test-compose.yml` を使うように設定しています。
 
-テスト時のみで使用する場合は `testRuntimeOnly` でいいと思います。
+テスト時のみで使用する場合は `testAndDevelopmentOnly` ではなく `testRuntimeOnly` でいいと思います。
 
 ## メモ
 
