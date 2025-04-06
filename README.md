@@ -8,6 +8,8 @@ Spring Boot 3.4.4でのサンプル実装です。
 ## 背景
 
 Spring Boot 3.1でTestcontainersとDocker Composeのサポートが導入されました。
+導入時はそれぞれ独立した項目でしたが、現在（Spring Boot 3.4.4）では [開発時のサービス](https://spring.pleiades.io/spring-boot/reference/features/dev-services.html) （[Development-time Services](https://docs.spring.io/spring-boot/reference/features/dev-services.html)）としてまとめられています。
+
 TestcontainersやDocker ComposeはそれぞれSpring Bootのサポートがなくても使われてきましたが、
 サポートが導入されたことで非常に使いやすくなりました。
 
@@ -41,6 +43,7 @@ Testcontainers単体で使う場合でも複数通りの使い方があり、さ
 ローカル実行はサポート機能は使わなくていいかなぁというのが正直なところですが、使うならDocker Composeかなと思います。
 ただテストで使っていない場合にローカル実行のために依存を追加するかというと正直微妙なところ。
 TestcontainersはJDBC URLなら使いたいですが、JDBC以外には使えませんし、名前に冠している通りテスト向きで、ローカル実行ではどうしてもぎこちない感じが拭えません。
+とはいえ併用も微妙なので、テストでTestcontainersを使っているなら使ってもいいかなぁ、くらい。忌避するほどのものではない感覚です。
 
 ## メモ
 
