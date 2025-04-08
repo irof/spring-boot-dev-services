@@ -19,7 +19,7 @@
 working directoryの `compose.yml` を使ってくれます。
 リリースモジュールに入らないように `developmentOnly` にするのが良いでしょう。
 
-サンプルではクラスパス上の `dev-compose.yml` を使うように設定しています。
+サンプルでは後述の理由でクラスパス上の `dev-compose.yml` を使うように設定しています。
 
 ## テストでのDocker Compose使用
 
@@ -27,7 +27,7 @@ working directoryの `compose.yml` を使ってくれます。
 `spring.docker.compose.skip.in-tests=false` を指定する必要があります。
 サンプルのようにプロファイルにしてもよいですし、合成アノテーションを使ってもいいと思います。
 
-サンプルではクラスパス上の `test-compose.yml` を使うように設定しています。
+サンプルでは後述の理由でクラスパス上の `test-compose.yml` を使うように設定しています。
 
 テスト時のみで使用する場合は `testAndDevelopmentOnly` ではなく `testRuntimeOnly` でいいと思います。
 
@@ -42,8 +42,8 @@ working directoryの `compose.yml` を使ってくれます。
 
 テストでは `classpath:test-compose.yml` を使用しているのは別設定も使用できることを示していますが、Docker Composeの設定が複数になるのも微妙ですし、
 同じにできるなら同じものを使う方が好ましいです。
-クラスパスに含める形にする場合、 `main` に置くとリリースモジュールに含まれることになるのは少し気になるところです。
-動きはしないので害はありませんが、気になるなら除外しましょう。
+クラスパスのものを使う場合、 `main` に置くとリリースモジュールに含まれることになるのは少し気になるところです。
+運用環境で使われはしないので害はありませんが、気になるなら除外しましょう。
 
 Docker Composeを開発時のアプリケーション起動やテスト時以外でも起動するのであればデフォルトのままworking directoryを使用するとして、
 うまく動作しない時はworking directoryを設定するか、 `spring.docker.compose.file` を絶対パスで指定するのが良いでしょう。
