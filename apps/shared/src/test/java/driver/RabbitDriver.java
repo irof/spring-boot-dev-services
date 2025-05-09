@@ -13,11 +13,19 @@ public class RabbitDriver {
 
     @Test
     public void defaultExchange経由でalphaに送信() {
+        // alphaでだけ処理されていることがみれる
         rabbitTemplate.convertAndSend("alpha", "alpha:" + System.currentTimeMillis());
     }
 
     @Test
     public void defaultExchange経由でbravoに送信() {
+        // bravoでだけ処理されていることがみれる
         rabbitTemplate.convertAndSend("bravo", "bravo:" + System.currentTimeMillis());
+    }
+
+    @Test
+    public void TopicExchange経由で両方に送信() {
+        // 同じメッセージが両方で処理されていることがみれる
+        rabbitTemplate.convertAndSend("shared-exchange", "dummy-routing-key", "shared:" + System.currentTimeMillis());
     }
 }
