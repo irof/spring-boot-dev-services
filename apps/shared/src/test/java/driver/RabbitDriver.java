@@ -12,12 +12,12 @@ public class RabbitDriver {
     RabbitTemplate rabbitTemplate;
 
     @Test
-    public void alphaに送信() {
-        rabbitTemplate.convertAndSend("alpha", "hoge");
+    public void defaultExchange経由でalphaに送信() {
+        rabbitTemplate.convertAndSend("alpha", "alpha:" + System.currentTimeMillis());
     }
 
     @Test
-    public void bravoに送信() {
-        rabbitTemplate.convertAndSend("bravo", "hoge");
+    public void defaultExchange経由でbravoに送信() {
+        rabbitTemplate.convertAndSend("bravo", "bravo:" + System.currentTimeMillis());
     }
 }

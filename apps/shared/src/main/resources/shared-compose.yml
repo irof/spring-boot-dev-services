@@ -1,16 +1,25 @@
-version: '3.9'
-
+name: sample
 services:
-
-  db:
-    image: postgres:latest
-    environment:
-      POSTGRES_PASSWORD: example
-    ports:
-      - "5432:5432"
-
   rabbit:
     image: rabbitmq:4-management-alpine
     ports:
       - "5672:5672"
       - "15672:15672"
+  alpha-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - "5432"
+    profiles:
+      - alpha
+      - default
+  bravo-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - "5432"
+    profiles:
+      - bravo
+      - default

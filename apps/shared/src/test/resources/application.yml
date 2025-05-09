@@ -2,3 +2,4 @@ spring:
   docker:
     compose:
       file: classpath:shared-compose.yml
+      lifecycle-management: start_only

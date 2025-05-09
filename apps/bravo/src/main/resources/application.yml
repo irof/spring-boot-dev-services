@@ -1,4 +1,9 @@
 spring:
+  sql:
+    init:
+      mode: always
   docker:
     compose:
       file: classpath:shared-compose.yml
+      profiles:
+        active: bravo
