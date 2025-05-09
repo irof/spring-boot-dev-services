@@ -12,16 +12,17 @@
 
 ### 単独で動作させる
 
-それぞれのアプリケーションの `@SpringApplication` の `main` を実行してください。
-必要なサービスのみ起動します。
+1. アプリケーションを起動する。
 
-個別に動作させる手順では二つの同時起動はできません。
+特に変わったことはありません。そのアプリケーションが必要なサービスのみ起動します。
+
+個別に動作させる手順では二つのアプリケーションを同時起動はできません。
 後者の方がJDBC接続エラーで起動失敗します。
 
-起動失敗時のエラーメッセージ
+起動失敗時のエラーメッセージは以下のようになります。
 
 ```
-2025-05-09T12:31:47.087+09:00 ERROR 10792 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+ERROR 00000 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
 
 ***************************
 APPLICATION FAILED TO START
@@ -32,12 +33,25 @@ Description:
 Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
 ```
 
+複数のアプリケーションを起動させたい場合はこの手順で起動したものは一旦終了し、両方を動作させる手順を行なってください。
+
 ### 両方を動作させる
 
-まず[DockerComposeをdefaultプロファイルで起動](./shared/runDockerCompose.sh)させます。
-起動が完了するのを待って、各アプリケーションを起動すればOKです。
+1. DockerComposeをdefaultプロファイルで起動する [起動スクリプト](./shared/runDockerCompose.sh)
+2. 起動が完了するのを待つ
+3. 各アプリケーションを起動する
 
-起動済みなのでDockerComposeの実行はスキップされますが、接続情報はDockerCompose設定ファイルから取得されます。
+アプリケーションを起動する際に特段の設定は不要です。
+同名のDockerComposeが起動済みなのでDockerComposeの実行はスキップされます。
+起動はスキップしますが、接続情報はDockerCompose設定ファイルから取得されます。
+
+#### スキップの確認とスキップされなかった場合の挙動
+
+起動時に `There are already Docker Compose services running, skipping startup` のログが出ていれば大丈夫ですが、
+起動完了前にアプリケーションを起動してしまうと起動プロセスが競合して色々なことが起こってしまいます。
+たとえばシャットダウン時の挙動ですが、スキップされた場合は停止もしませんが、自分で起動したものは停止します。
+このため半端にサービスを停止してしまったりします。
+うまく動かなくなっってしまった場合はDockerComposeが起動したコンテナを手動で片付けてください。
 
 ## 解説
 
