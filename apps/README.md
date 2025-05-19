@@ -5,8 +5,39 @@
 
 ## 構成
 
-- `alpha`, `bravo` : アプリケーションです。
-- `shared`: アプリケーションで使用する共通ライブラリです。
+### アプリケーション
+
+```mermaid
+graph LR
+    alpha
+    bravo
+    alpha-db[(alpha-db)]
+    bravo-db[(bravo-db)]
+    rabbit(rabbit)
+
+    alpha --> alpha-db
+    bravo --> bravo-db
+    alpha -- listen --> rabbit
+    bravo -- listen --> rabbit
+```
+
+アプリケーション `alpha`, `bravo` はそれぞれ固有のデータベースをもち、RabbitMQを共有します。
+
+### フォルダ
+
+```mermaid
+graph LR
+    alpha
+    bravo
+    subgraph shared
+        shared-compose.yml
+    end
+
+    alpha -- classpath --> shared-compose.yml
+    bravo -- classpath --> shared-compose.yml
+```
+
+[使用するサービスを全て記述したshared-compose.yml](./shared/src/main/resources/shared-compose.yml) をクラスパスで参照します。
 
 ## 動かし方
 
@@ -76,6 +107,15 @@ SpringBootの開発時サービスサポート機能で賄うことで極力シ�
 
 - DockerComposeのprofileを使用することでアプリケーションと対象サービスの紐付けを制御しつつ、アプリケーション単独で起動する際に余計なサービスが起動しないようにする。
 - DockerComposeのnameを使用することで共有できるようにする。nameを使用しないと同じ設定ファイルでも別の名前（`resources` や `main` など）で起動してしまう。
+
+## 課題
+
+`shared-compose.yml` にすべてのサービスを記述する必要があります。
+
+`spring.docker.compose.file` は複数指定可能なので、共通するものとアプリケーションごとのファイルを分けて記述したいところです。
+ですがそうすると組み合わせた別のcomposeとして認識されるため、新たにrabbitmqを起動しようとしてしまってうまくいきません。
+
+ローカル動作確認のために複数サービスを起動する必要があるのがあまりよくないですし、無理するところでもないかなと思います。
 
 ## 動作確認
 
